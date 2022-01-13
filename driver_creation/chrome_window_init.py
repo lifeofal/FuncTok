@@ -1,4 +1,5 @@
-from logging import log
+import time
+from os import wait
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from config import chrome_options
@@ -26,21 +27,48 @@ class starter_driver:
                 ChromeDriverManager().install(), options=self.chrome_options)
 
         self.driver.get("https://www.tiktok.com")
-        self.driver.implicitly_wait(5)
+        self.driver.implicitly_wait(6)
+
+        try:
+            time.sleep(10)
+            self.driver.find_element_by_class_name(
+                "captcha_verify_container style__CaptchaWrapper-sc-1gpeoge-0 rUVoM")
+            print("PLEASE COMPLETE THE CAPTCHA IN ORDER TO CONTINUE")
+            
+
+        except NoSuchElementException:
+            print("No Captcha detected.. Continuing")
+
+    
+        finally:
+            time.sleep(10)
 
         try:
             self.driver.find_element_by_xpath(
                 "//*[@id=\"app\"]/div[1]/div/div[2]/button").click()
 
-        except Exception:
+        except NoSuchElementException:
             print(
                 "xpath not found with: \"//*[@id=\"app\"]/div[1]/div/div[2]/button\"")
             print("Trying to log in with button path")
             self.driver.find_element_by_class_name(
                 "e13wiwn62 tiktok-1mm63h3-Button-StyledLoginButton ehk74z00").click()
 
+        finally:
+            time.sleep(10)
+        
+        # try:
+
+        #     self.driver.find_element_by_class_name(
+        #         "captcha_verify_container style__CaptchaWrapper-sc-1gpeoge-0 rUVoM")
+        #     print("PLEASE COMPLETE THE CAPTCHA IN ORDER TO CONTINUE")
+            
+
+        # except NoSuchElementException:
+        #     print("No Captcha detected.. Continuing")
+
         self.driver.find_element_by_xpath(
-            "//*[@id=\"root\"]/div/div[1]/div/div[1]/div[2]/div[2]/div[2]").click()
+            "/html/body/div[1]/div/div[1]/div/div[1]/div[2]/div[2]/div[2]").click()
         self.driver.find_element_by_xpath(
             "//*[@id=\"root\"]/div/div[1]/form/div[1]/a").click()
 
@@ -52,10 +80,11 @@ class starter_driver:
             '//*[@id="root"]/div/div[1]/form/button').click()
 
         try:
+            time.sleep(10)
             self.driver.find_element_by_class_name(
                 "captcha_verify_container style__CaptchaWrapper-sc-1gpeoge-0 rUVoM")
             print("PLEASE COMPLETE THE CAPTCHA IN ORDER TO CONTINUE")
-            self.driver.implicitly_wait(15)
+            
 
             try:
                 self.driver.find_element_by_class_name(

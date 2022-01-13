@@ -1,5 +1,6 @@
-from selenium.webdriver.remote import switch_to
+
 from config import *
+from driver_creation import *
 
 def main():
     #----------------------------------------------------------------------------------#
@@ -49,6 +50,7 @@ ________ ___  ___  ________   ________ _________  ________  ___  __
     Would you like to run in Headless mode? (y/n)
     
     
+
     
     """)
 
@@ -57,7 +59,7 @@ ________ ___  ___  ________   ________ _________  ________  ___  __
     url = 'http://www.tiktok.com/@{}'.format('lifeof_al')
     d1 = chrome_window_init.starter_driver('lifeof_al', 'TangoTango0722!', HEADLESS)
 
-    while (d1.BROWSER_STATUS == -1):
+    while (d1.BROWSER_STATUS is -1):
         d1.driver.close()
         main()
 

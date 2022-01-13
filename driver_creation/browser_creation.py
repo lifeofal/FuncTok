@@ -3,9 +3,9 @@ import pickle
 from multiprocessing import Pool
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-from chrome_options import chromeOptions_args
+from config import chrome_options
 from webdriver_manager.chrome import ChromeDriverManager
-from chrome_window_init import starter_driver
+
 from definitions import ROOT_DIR
 
 cookie_path = os.path.join(ROOT_DIR, "resources/cookies.txt")
@@ -30,9 +30,9 @@ def create_browser_with_cookies(headless, url):
     if headless == 'n' or headless == 'N':
         driver = webdriver.Chrome(ChromeDriverManager().install())
     else:
-        chromeOptions = chromeOptions_args.chromeOptions()
+        chromeOptions_args = chrome_options.chromeOptions()
         driver = webdriver.Chrome(
-            ChromeDriverManager().install(), chrome_options=chromeOptions)
+            ChromeDriverManager().install(), chrome_options=chromeOptions_args)
     driver.implicitly_wait(5)
     driver.get('http://www.tiktok.com')
     driver = load_cookie(driver, cookie_path)
