@@ -1,0 +1,7 @@
+secrets.py
+env/
+.idea/
+Unfollowers2.py
+__pycache__/
+resources/*.txt
+.DS_Store
