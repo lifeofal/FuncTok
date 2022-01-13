@@ -1,3 +1,4 @@
+from selenium.webdriver.remote import switch_to
 from config import *
 
 def main():
@@ -51,15 +52,38 @@ ________ ___  ___  ________   ________ _________  ________  ___  __
     
     """)
 
-    headless = input()
+    HEADLESS = input()
     # -----Create Starter Driver -----
     url = 'http://www.tiktok.com/@{}'.format('lifeof_al')
-    d1 = chrome_window_init.starter_driver('lifeof_al', 'TangoTango0722!', headless)
+    d1 = chrome_window_init.starter_driver('lifeof_al', 'TangoTango0722!', HEADLESS)
+
+    while (d1.BROWSER_STATUS == -1):
+        d1.driver.close()
+        main()
+
+    
 
     browser_creation.save_cookie(d1.driver)
     # print('Closing initial driver')
 
+    print("Log in successful.. What task should FuncTok run? :)")
+
+    USER_CHOICE = input("""
     
+    1. Unliker (Unlikes all posts in your liked section. Cannot undo this!)
+    
+    2. Coming Soon
+
+    3. Coming Soon
+    
+    """)
+
+    if(USER_CHOICE is 1):
+        pass
+
+
+
+
     d1.driver.close()
     
 
